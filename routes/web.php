@@ -26,4 +26,10 @@ $router->group(['prefix' => 'api/v1', 'namespace' => 'v1'], function() use ($rou
     // Update User
     $router->put('/users/{id}', 'UserController@update');
 
+    // Update User
+    $router->delete('/users/{id}', 'UserController@destroy');
+
+    // Update User
+    $router->get('/users/{id}', 'UserController@show');
+
 });

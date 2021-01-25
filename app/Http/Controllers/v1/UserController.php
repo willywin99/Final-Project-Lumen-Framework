@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         $users = User::all();
         return response()->json([
-            'status' => 'success',
+            'status' => 'ok',
             'status_code' => 200,
             'data' => $users
         ], 200);
@@ -52,7 +52,12 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        return response()->json([
+            'status' => 'accepted',
+            'status_code' => 202,
+            'data' => $user
+        ], 202);
     }
 
     /**
@@ -64,7 +69,33 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // if($request->isMethod('patch')) {
+
+        //     $this->validate($request, [
+        //         'first_name' => 'required',
+        //         'last_name' => 'required',
+        //         'email' => 'required'
+        //     ]);
+        //     $user->first_name = $request->input('first_name');
+        //     $user->first_name = $request->input('first_name');
+        //     $user->first_name = $request->input('first_name');
+        // }
+
+        $user = User::find($id);
+        // dd($user);
+        $user->first_name = $request->first_name;
+        // $user->first_name = $request->input('first_name');
+        $user->last_name = $request->last_name;
+        // $user->last_name = $request->input('last_name');
+        $user->email = $request->email;
+        // $user->email = $request->input('email');
+        // dd($user);
+        $user->save();
+        return response()->json([
+            'status' => 'accepted',
+            'status_code' => 202,
+            'data' => 'Data has been updated success'
+        ], 202);
     }
 
     /**
@@ -75,6 +106,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+        return response()->json([
+            'status' => 'accepted',
+            'status_code' => '202',
+            'data' => 'data has been deleted success'
+        ], 202);
     }
 }
