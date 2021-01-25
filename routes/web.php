@@ -11,6 +11,19 @@
 |
 */
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
+// $router->get('/', function () use ($router) {
+//     return $router->app->version();
+// });
+
+$router->group(['prefix' => 'api/v1', 'namespace' => 'v1'], function() use ($router) {
+
+    // List All Users
+    $router->get('/users', 'UserController@index');
+
+    // Create new User
+    $router->post('/users', 'UserController@store');
+
+    // Update User
+    $router->put('/users/{id}', 'UserController@update');
+
 });
